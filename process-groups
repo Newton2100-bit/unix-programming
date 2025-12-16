@@ -1,0 +1,4 @@
+getpgrp(void)
+getpgid()
+killpg(pid of the target process i think)
+kill()

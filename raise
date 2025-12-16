@@ -1,0 +1,2 @@
+It is better to note that raise() function call upon failure it doe snt set errno it just returns a relative errornumber to the caller
+not setting of errno

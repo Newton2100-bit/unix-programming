@@ -1,0 +1,3 @@
+for killpg it delas with process groups
+it returns as orthers and also sets errno like kill()
+
