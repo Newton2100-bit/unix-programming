@@ -1,0 +1,40 @@
+#!/bin/bash
+# memory_watch.sh - Watch stack and heap of a process
+
+PID=$1
+if [ -z "$PID" ]; then
+    echo "Usage: $0 <pid>"
+    exit 1
+fi
+
+while true; do
+    clear
+    echo "=== Memory Map for PID $PID ==="
+    echo
+    
+    # Heap info
+    echo "HEAP:"
+    grep "\[heap\]" /proc/$PID/maps | while read line; do
+        addr=$(echo $line | awk '{print $1}')
+        start=$(echo $addr | cut -d'-' -f1)
+        end=$(echo $addr | cut -d'-' -f2)
+        size=$(printf "%d" $((0x$end - 0x$start)))
+        size_mb=$(echo "scale=2; $size / 1024 / 1024" | bc)
+        echo "  Address: $addr"
+        echo "  Size: $size_mb MB"
+    done
+    
+    echo
+    echo "STACK:"
+    grep "\[stack\]" /proc/$PID/maps | while read line; do
+        addr=$(echo $line | awk '{print $1}')
+        start=$(echo $addr | cut -d'-' -f1)
+        end=$(echo $addr | cut -d'-' -f2)
+        size=$(printf "%d" $((0x$end - 0x$start)))
+        size_kb=$(echo "scale=2; $size / 1024" | bc)
+        echo "  Address: $addr"
+        echo "  Size: $size_kb KB"
+    done
+    
+    sleep 1
+done
