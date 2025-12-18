@@ -1,0 +1,7 @@
+struct sigaction {
+	void (*sa_handler)(int); /* signal handler or action */
+	void (*sa_sigaction)(int, siginfo_t *, void *);
+	sigset_t sa_mask; /* signals to block */
+	int sa_flags; /* flags */
+	void (*sa_restorer)(void); /* obsolete and non-POSIX */
+}
