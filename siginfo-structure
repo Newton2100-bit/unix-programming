@@ -1,0 +1,16 @@
+typedef struct siginfo_t {
+	int si_signo; /* signal number */
+	int si_errno; /* errno value */
+	int si_code; /* signal code */
+	pid_t si_pid; /* sending process's PID */
+	uid_t si_uid; /* sending process's real UID */
+	int si_status; /* exit value or signal */
+	clock_t si_utime; /* user time consumed */
+	clock_t si_stime; /* system time consumed */
+	sigval_t si_value; /* signal payload value */
+	int si_int; /* POSIX.1b signal */
+	void *si_ptr; /* POSIX.1b signal */
+	void *si_addr; /* memory location that caused fault */
+	int si_band; /* band event */
+	int si_fd; /* file descriptor */
+};
