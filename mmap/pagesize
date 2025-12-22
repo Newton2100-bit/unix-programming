@@ -1,0 +1,14 @@
+page 
+- is the smallest unit of memory that can have distinct permissions and behaviour
+(it is the builing block of memory mappings,which in turn are the building blocks of the processes' adress space)
+
+the [ mmap() ] operates on pages.
+both the adrr and offste parameters must be aligned on a page sized boundary.
+
+It is worth noting that
+addr and offset must be multiples of pagesize( that is add must be the start of a page as well as offset must match the 
+start of a page)
+of len doesn't fit even full pages then the last page will be filled with zeros after the len
+any write to the zero will not be reflected to the file even if MAP_SHARED was present.
+<<< Only the original len bytes are ever written
+back to the file.>>>

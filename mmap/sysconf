@@ -1,0 +1,9 @@
+#include <unistd.h>
+long sysconf (int name)
+
+- It returns  the value of the configuration item name, or -1 if name is invalid
+- sets errno incase of error since -1 can be a valid value for osme things like limits where it means no limit
+for page size we are covere by
+	-  _Sc_PAGESIZE or _SC_PAGE_SIZE
+long page_size = sysconf(_SC_PAGESIZE)
+

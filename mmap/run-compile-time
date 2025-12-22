@@ -1,0 +1,4 @@
+we have 
+sysconf() and getpagesize() as runtime values 
+and <asm/page.> mcro PAGE_SZIE for compile time since the preprocessor will do it's work
+

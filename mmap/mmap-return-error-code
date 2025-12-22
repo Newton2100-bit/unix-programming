@@ -1,0 +1,12 @@
+- On success it returns the location of the mapping
+- On error it returns MAP_FAILED and sets errno appropriately ( It never returns zero )
+possible errno values
+	 EACCESS (not regular file mode of fd conflict with prot and flags)
+	EAGAIN - the file has been locked via a fil elcok
+	 EBADF - the given fil edescriptor is not valid
+	EINVAL- either addr, len or off is invalid
+	ENFILE - fopen_max has been reached
+	EOVERFLOW - the addr+len exeeds the address space
+	EPERM - PROC_EXEC was given but the filesystem in munted noexec
+	ENODEV - the file syste
+

@@ -1,0 +1,47 @@
+#inlcude <sys/mman.h>
+void *mmap(void *addr, /* if provided it becomes the base of our mapping */
+		size_t len, /* The number of bytes to map right after the offset. */
+		int prot,/* Access permissions */
+		int flags,/ * additional behaviour */
+		int fd,/* this is the targrt objet to be mapped into memory */
+		off_t offset);/* position to start mapping inside the target object */
+
+- A call to mmap asks the kernel to map len bytes of the object represented by the file descriptor fd
+starting at offset bytes into the file into memory
+- If addr is included it indicates a preference to use that starting address in memory.
+- prot describes the desired memory protection of the mapping (memory proection)
+argments can be 
+	PROT_NONE -> in which case the pages will be inaccesible which does not make any sense
+	PROT_WRITE -> the pages may be read
+	PROT_READ -> the pages may be read
+	PROT_EXEC -> the pages may be executed
+(The protection modes must not conflict with the open mode of the object{file})
+flags
+- It describes the type of mapping, and  some elements of it's behavior.
+it can be an y of the bitie of the below
+ 	1. MAP_FIXEDa- treat addr as a requirement not a hint
+		- if unable to map into addr then the map fails
+		- if the address and the length address overlap with an existing mapping then then the
+			 overlapped pages arediscarded and replAced by the new mapping.
+		- it is non-portable and it's use is discouraged
+		
+		
+	2. MAP_PRIVATE
+		- states that the mapping is not shared
+		- the file is maped copy on write and any changes made to the file by this process is not reflected
+			to the actual file or in mappings of orther processes
+	3. MAP_SHARED
+		- shares the same mapping with all orther processes that map this same file.
+		- writting into the mapping in memory by this process is equivalent to writting into the file 
+
+- When you map a file the reference count is incremented so you can close the fd and still you will have 
+a file at your disposal
+
+
+/* Example usage */
+void *p
+p = mmap(0, len, PROT_READ, MAP_SHARED, fd, 0);
+if (p == MAP_FAILED)
+	perror("mmap error");
+
+

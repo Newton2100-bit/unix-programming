@@ -1,0 +1,7 @@
+- Thi sis very direct since it knows exactl what to return it des nt waste time searching.
+
+#include <unistd.h>
+int getpagesize(void)
+
+- The value returned is nterms of bytes.
+- It is not a good i dea how they are saying that is is not of any standard it is just a function. 
