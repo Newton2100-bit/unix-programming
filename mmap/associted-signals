@@ -1,0 +1,5 @@
+SIGBUS
+	generated when a process attempts t access a region of mapping that is no longer valid (ie after you truncate after you had mapped already)
+
+SIGSEGV
+	 generated when a process attempts to write on a read-only region
