@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define error(...)  do{\
+		fprintf(stderr, __VA_ARGS__);\
+	exit(EXIT_FAILURE);\
+}while(0)
+
+
 
 char filename[] = "sample-file.txt";
 char fortune[50];
@@ -17,11 +23,12 @@ copy(void){
 		total_bytes += n;
 		write(output_fd, fortune, n);
 
-		if((total_bytes % 10) == 0){
-			lseek(output_fd, 4096, 2);
-			n = write(output_fd, "[break]",strlen("[break]"));
-			total_bytes += n;
-		}
+		/*if((total_bytes % 10) == 0){
+		  lseek(output_fd, 4096, 2);
+		  n = write(output_fd, "[break]",strlen("[break]"));
+		  total_bytes += n;
+
+		  }*/
 	}
 
 	fprintf(stderr, "%d bytes copied to %s\n", total_bytes, filename);
@@ -30,16 +37,13 @@ copy(void){
 
 int
 main(void){
-	if((output_fd = creat(filename, 0644)) == -1){
-		fprintf(stderr, "Error creating file [%s]\n", filename);
-		exit(EXIT_FAILURE);
-	}
+	if((output_fd = creat(filename, 0644)) == -1)
+		error("Error creating file [%s]\n", filename);
 
 	input = popen("fortune", "r");
-	if(input == NULL){
-		fprintf(stderr, "Error runnig fortune command\n");
-		exit(EXIT_FAILURE);
-	}
+	if(input == NULL)
+		error("Error runnig fortune command\n");
+
 	input_fd = fileno(input);
 	copy();
 
